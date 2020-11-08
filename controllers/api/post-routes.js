@@ -10,14 +10,12 @@ router.get('/', (req, res) => {
     Post.findAll({
             attributes: ['id', 'post_url', 'title', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']],
             order: [
-                ['created_at', 'DESC']
+                ['created_at', 'DESC'],
+                [Comment, 'created_at', 'ASC']
             ],
             include: [{
                 model: Comment,
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-                order: [
-                    [Comment, 'created_at', 'DESC']
-                ],
                 include: {
                     model: User,
                     attributes: ['username']
