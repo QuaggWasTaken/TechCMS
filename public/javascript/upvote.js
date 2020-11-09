@@ -6,7 +6,7 @@ async function upvoteClickHandler(event) {
     ];
 
     const response = await fetch('/api/posts/upvote', {
-        method: 'PUT',
+        method: 'POST',
         body: JSON.stringify({
             post_id: id
         }),
@@ -16,9 +16,10 @@ async function upvoteClickHandler(event) {
     });
 
     if (response.ok) {
+        console.log(response)
         document.location.reload();
     } else {
-        alert(response.statusText);
+        alert("You already upvoted this!");
     }
 }
 
